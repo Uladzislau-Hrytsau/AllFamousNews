@@ -1,1 +1,1 @@
-# AllFamousNews
+# com.all.famous.AllFamousNews
