@@ -1,39 +1,46 @@
-package com.all.famous.news.model.dto;
+package com.all.famous.news.model.dao;
 
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * The type Article dto.
+ * The type Article.
  */
 @Builder
-public class ArticleDto {
+public class Article implements Serializable {
 
     private Long articleId;
     private String articleName;
+    private String articleContent;
     private String encodeImage;
     private String articleDescription;
+    private Long categoryId;
 
     /**
-     * Instantiates a new Article dto.
+     * Instantiates a new Article.
      */
-    public ArticleDto() {
+    public Article() {
     }
 
     /**
-     * Instantiates a new Article dto.
+     * Instantiates a new Article.
      *
      * @param articleId          the article id
      * @param articleName        the article name
+     * @param articleContent     the article content
      * @param encodeImage        the encode image
      * @param articleDescription the article description
+     * @param categoryId         the category id
      */
-    public ArticleDto(Long articleId, String articleName, String encodeImage, String articleDescription) {
+    public Article(Long articleId, String articleName, String articleContent, String encodeImage, String articleDescription, Long categoryId) {
         this.articleId = articleId;
         this.articleName = articleName;
+        this.articleContent = articleContent;
         this.encodeImage = encodeImage;
         this.articleDescription = articleDescription;
+        this.categoryId = categoryId;
     }
 
     /**
@@ -73,6 +80,24 @@ public class ArticleDto {
     }
 
     /**
+     * Gets article content.
+     *
+     * @return the article content
+     */
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    /**
+     * Sets article content.
+     *
+     * @param articleContent the article content
+     */
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
+
+    /**
      * Gets encode image.
      *
      * @return the encode image
@@ -108,29 +133,51 @@ public class ArticleDto {
         this.articleDescription = articleDescription;
     }
 
+    /**
+     * Gets category id.
+     *
+     * @return the category id
+     */
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * Sets category id.
+     *
+     * @param categoryId the category id
+     */
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArticleDto that = (ArticleDto) o;
-        return Objects.equals(articleId, that.articleId) &&
-                Objects.equals(articleName, that.articleName) &&
-                Objects.equals(encodeImage, that.encodeImage) &&
-                Objects.equals(articleDescription, that.articleDescription);
+        Article article = (Article) o;
+        return Objects.equals(articleId, article.articleId) &&
+                Objects.equals(articleName, article.articleName) &&
+                Objects.equals(articleContent, article.articleContent) &&
+                Objects.equals(encodeImage, article.encodeImage) &&
+                Objects.equals(articleDescription, article.articleDescription) &&
+                Objects.equals(categoryId, article.categoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(articleId, articleName, encodeImage, articleDescription);
+        return Objects.hash(articleId, articleName, articleContent, encodeImage, articleDescription, categoryId);
     }
 
     @Override
     public String toString() {
-        return "ArticleDto{" +
+        return "Article{" +
                 "articleId=" + articleId +
                 ", articleName='" + articleName + '\'' +
+                ", articleContent='" + articleContent + '\'' +
                 ", encodeImage='" + encodeImage + '\'' +
                 ", articleDescription='" + articleDescription + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

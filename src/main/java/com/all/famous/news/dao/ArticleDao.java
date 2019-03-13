@@ -1,13 +1,13 @@
-package com.all.famous.news.service;
+package com.all.famous.news.dao;
 
 import com.all.famous.news.model.dto.ArticleDto;
 
 import java.util.List;
 
 /**
- * The interface Article service.
+ * The interface Article dao.
  */
-public interface ArticleService {
+public interface ArticleDao {
 
     /**
      * Gets articles by size and offset.
