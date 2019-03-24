@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * The type Article controller.
+ * The type Article rest controller.
  */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class ArticleController {
+public class ArticleRestController {
 
     private final ArticleService articleService;
 
     /**
-     * Instantiates a new Article controller.
+     * Instantiates a new Article rest controller.
      *
      * @param articleService the article service
      */
     @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleRestController(ArticleService articleService) {
         this.articleService = articleService;
     }
 

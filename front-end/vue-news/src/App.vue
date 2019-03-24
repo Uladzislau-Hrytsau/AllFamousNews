@@ -1,24 +1,27 @@
 <template>
     <div id="app">
-        <Test v-for="count in counts" v-bind:key="count"></Test>
+        <Header></Header>
+        <main class="container-fluid">
+            <Body></Body>
+        </main>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
-    import Test from './components/Test'
+    import 'bootstrap-css-only/css/bootstrap.min.css';
+    import 'mdbvue/build/css/mdb.css';
+    import Header from './components/Header';
+    import Body from './components/Body';
+    import Footer from './components/Footer';
 
     export default {
         name: 'app',
-
-        data() {
-            return {
-                counts: [1,2],
-            }
-        },
-
         components: {
-            Test,
-        }
+            Footer,
+            Header,
+            Body
+        },
     }
 </script>
 

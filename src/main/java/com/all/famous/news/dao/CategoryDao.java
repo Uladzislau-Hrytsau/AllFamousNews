@@ -1,6 +1,7 @@
 package com.all.famous.news.dao;
 
-import com.all.famous.news.model.dao.Category;
+import com.all.famous.news.model.dto.CategoryChildDto;
+import com.all.famous.news.model.dto.CategoryDto;
 
 import java.util.List;
 
@@ -10,11 +11,18 @@ import java.util.List;
 public interface CategoryDao {
 
     /**
-     * Gets categories by parent id.
+     * Gets categories by parent id is null.
+     *
+     * @return the categories by parent id is null
+     */
+    List<CategoryDto> getCategoriesByParentIdIsNull();
+
+    /**
+     * Gets category children by parent id.
      *
      * @param parentId the parent id
-     * @return the categories by parent id
+     * @return the category children by parent id
      */
-    List<Category> getCategoriesByParentId(Long parentId);
+    List<CategoryChildDto> getCategoryChildrenByParentId(Long parentId);
 
 }

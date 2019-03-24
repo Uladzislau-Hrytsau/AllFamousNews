@@ -1,6 +1,6 @@
 package com.all.famous.news.service;
 
-import com.all.famous.news.model.dao.Category;
+import com.all.famous.news.model.dto.CategoryDto;
 
 import java.util.List;
 
@@ -10,11 +10,10 @@ import java.util.List;
 public interface CategoryService {
 
     /**
-     * Gets categories by parent id.
+     * Gets categories.
      *
-     * @param parentId the parent id
-     * @return the categories by parent id
+     * @return the categories
      */
-    List<Category> getCategoriesByParentId(Long parentId);
+    List<CategoryDto> getCategories();
 
 }

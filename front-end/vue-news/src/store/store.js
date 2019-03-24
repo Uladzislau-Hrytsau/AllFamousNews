@@ -13,33 +13,34 @@ axios.defaults.baseURL = 'http://localhost:8080';
 export const store = new Vuex.Store({
 
     state: {
-        folders: [],
+        menu: []
     },
 
     getters: {},
 
     mutations: {
-        getFolders(state, folders) {
-            state.folders = folders
+        setMenu(state, menu) {
+            state.menu = menu;
         },
+        destroyMenu(state) {
+            state.menu = null;
+        }
     },
 
     actions: {
-
-        displayStructure(context) {
-            return new Promise(((resolve, reject) => {
+        getAllCategories(context) {
+            return new Promise((resolve, reject) => {
                 axios
-                    .get('news')
+                    .get('/categories')
                     .then(response => {
-                        context.commit('getFolders', response.data)
-                        console.log(response)
+                        context.commit('setMenu', response.data);
                         resolve(response)
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log(error);
                         reject(error)
                     })
-            }))
+            })
         }
 
     },

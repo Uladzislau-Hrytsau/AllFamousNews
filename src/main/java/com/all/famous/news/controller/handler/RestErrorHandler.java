@@ -28,10 +28,9 @@ public class RestErrorHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidationException(ValidationException exc) {
-        ErrorResponse errorResponse = new ErrorResponse().builder()
+        return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
-        return errorResponse;
     }
 
     /**
@@ -43,10 +42,9 @@ public class RestErrorHandler {
     @ExceptionHandler(InternalServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleInternalServerException(InternalServerException exc) {
-        ErrorResponse errorResponse = new ErrorResponse().builder()
+        return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
-        return errorResponse;
     }
 
     /**
@@ -58,10 +56,9 @@ public class RestErrorHandler {
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleDataAccessException(DataAccessException exc) {
-        ErrorResponse errorResponse = new ErrorResponse().builder()
+        return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
-        return errorResponse;
     }
 
     /**
@@ -73,10 +70,9 @@ public class RestErrorHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleDataAccessException(Exception exc) {
-        ErrorResponse errorResponse = new ErrorResponse().builder()
+        return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
-        return errorResponse;
     }
 
 }
