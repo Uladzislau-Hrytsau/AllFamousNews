@@ -1,6 +1,6 @@
 package com.all.famous.news.dao;
 
-import com.all.famous.news.model.dto.ArticleDto;
+import com.all.famous.news.model.dao.Article;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface ArticleDao {
      * @param offset the offset
      * @return the articles by size and offset
      */
-    List<ArticleDto> getArticlesBySizeAndOffset(Integer size, Integer offset);
+    List<Article> getArticlesBySizeAndOffset(Integer size, Integer offset);
 
     /**
      * Gets articles by size and offset and category id.
@@ -26,7 +26,7 @@ public interface ArticleDao {
      * @param categoryId the category id
      * @return the articles by size and offset and category id
      */
-    List<ArticleDto> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId);
+    List<Article> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId);
 
     /**
      * Gets articles by size and offset and article name.
@@ -36,14 +36,29 @@ public interface ArticleDao {
      * @param articleName the article name
      * @return the articles by size and offset and article name
      */
-    List<ArticleDto> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName);
+    List<Article> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName);
 
     /**
-     * Gets number of articles by category id.
+     * Gets count articles.
+     *
+     * @return the count articles
+     */
+    Long getCountArticles();
+
+    /**
+     * Gets count articles by category id.
      *
      * @param categoryId the category id
-     * @return the number of articles by category id
+     * @return the count articles by category id
      */
-    Integer getNumberOfArticlesByCategoryId(Long categoryId);
+    Long getCountArticlesByCategoryId(Long categoryId);
+
+    /**
+     * Gets count articles by title.
+     *
+     * @param title the title
+     * @return the count articles by title
+     */
+    Long getCountArticlesByTitle(String title);
 
 }

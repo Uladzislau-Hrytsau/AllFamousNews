@@ -20,26 +20,31 @@ public class ArticleRowMapper implements RowMapper<Article> {
     private String articleId;
     @Value("${article.articleName}")
     private String articleName;
+    @Value("${article.articleDescription}")
+    private String articleDescription;
     @Value("${article.articleContent}")
     private String articleContent;
     @Value("${article.encodeImage}")
     private String encodeImage;
-    @Value("${article.articleDescription}")
-    private String articleDescription;
     @Value("${article.categoryId}")
     private String categoryId;
+    @Value("${article.articleDate}")
+    private String articleDate;
+    @Value("${article.articleAuthor}")
+    private String articleAuthor;
 
     @Override
     public Article mapRow(ResultSet rs, int i) throws SQLException {
-        Article article = new Article().builder()
-                .articleId(rs.getLong(articleId))
+        return Article.builder()
+                .id(rs.getLong(articleId))
                 .articleName(rs.getString(articleName))
-                .articleContent(rs.getString(articleContent))
-                .encodeImage(rs.getString(encodeImage))
                 .articleDescription(rs.getString(articleDescription))
+                .articleContent(rs.getString(articleContent))
+                .articleEncodeImg(rs.getString(encodeImage))
                 .categoryId(rs.getLong(categoryId))
+                .date(rs.getDate(articleDate) == null ? null : rs.getDate(articleDate).toLocalDate())
+                .author(rs.getString(articleAuthor))
                 .build();
-        return article;
     }
 
 }

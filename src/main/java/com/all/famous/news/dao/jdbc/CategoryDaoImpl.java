@@ -1,8 +1,10 @@
 package com.all.famous.news.dao.jdbc;
 
 import com.all.famous.news.dao.CategoryDao;
-import com.all.famous.news.dao.jdbc.mapper.dao.CategoryRowMapper;
-import com.all.famous.news.model.dao.Category;
+import com.all.famous.news.dao.jdbc.mapper.dto.CategoryChildDtoRowMapper;
+import com.all.famous.news.dao.jdbc.mapper.dto.CategoryDtoRowMapper;
+import com.all.famous.news.model.dto.CategoryChildDto;
+import com.all.famous.news.model.dto.CategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,32 +19,44 @@ import java.util.List;
 @Component
 public class CategoryDaoImpl implements CategoryDao {
 
-    private static final String PARENT_ID = "parentId";
-
-    @Value("${category.selectArticlesByCategoryId}")
-    private String selectArticlesByCategoryIdSql;
+    private static final String PARENT_ID = "parent_id";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final CategoryRowMapper categoryRowMapper;
+    private final CategoryDtoRowMapper categoryDtoRowMapper;
+    private final CategoryChildDtoRowMapper categoryChildDtoRowMapper;
+
+    @Value("${category.selectCategoryChildrenByParentId}")
+    private String selectCategoryChildrenByParentIdSql;
+    @Value("${category.selectCategoryByParentIdIsNull}")
+    private String selectCategoryByParentIdIsNullSql;
 
     /**
      * Instantiates a new Category dao.
      *
      * @param namedParameterJdbcTemplate the named parameter jdbc template
-     * @param categoryRowMapper          the category row mapper
+     * @param categoryDtoRowMapper       the category dto row mapper
+     * @param categoryChildDtoRowMapper  the category child dto row mapper
      */
     @Autowired
     public CategoryDaoImpl(
             NamedParameterJdbcTemplate namedParameterJdbcTemplate,
-            CategoryRowMapper categoryRowMapper) {
+            CategoryDtoRowMapper categoryDtoRowMapper,
+            CategoryChildDtoRowMapper categoryChildDtoRowMapper) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        this.categoryRowMapper = categoryRowMapper;
+        this.categoryDtoRowMapper = categoryDtoRowMapper;
+        this.categoryChildDtoRowMapper = categoryChildDtoRowMapper;
+    }
+
+
+    @Override
+    public List<CategoryDto> getCategoriesByParentIdIsNull() {
+        return namedParameterJdbcTemplate.query(selectCategoryByParentIdIsNullSql, categoryDtoRowMapper);
     }
 
     @Override
-    public List<Category> getCategoriesByParentId(Long parentId) {
+    public List<CategoryChildDto> getCategoryChildrenByParentId(Long parentId) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(PARENT_ID, parentId);
-        return namedParameterJdbcTemplate.query(selectArticlesByCategoryIdSql, parameterSource, categoryRowMapper);
+        return namedParameterJdbcTemplate.query(selectCategoryChildrenByParentIdSql, parameterSource, categoryChildDtoRowMapper);
     }
 }
