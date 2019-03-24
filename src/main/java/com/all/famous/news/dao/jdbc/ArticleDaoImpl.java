@@ -1,8 +1,8 @@
 package com.all.famous.news.dao.jdbc;
 
 import com.all.famous.news.dao.ArticleDao;
-import com.all.famous.news.dao.jdbc.mapper.dto.ArticleDtoRowMapper;
-import com.all.famous.news.model.dto.ArticleDto;
+import com.all.famous.news.dao.jdbc.mapper.dao.ArticleRowMapper;
+import com.all.famous.news.model.dao.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,10 +20,34 @@ import java.util.List;
 @PropertySource("classpath:sql/sql-fields.properties")
 public class ArticleDaoImpl implements ArticleDao {
 
-    private static final String CATEGORY_ID = "categoryId";
-    private static final String OFFSET = "offset";
-    private static final String LIMIT = "limit";
-    private static final String ARTICLE_NAME = "articleName";
+    @Value("${article.articleId}")
+    private String ARTICLE_ID;
+    @Value("${article.articleName}")
+    private String ARTICLE_NAME;
+
+    @Value("${article.articleDescription}")
+    private String articleDescription;
+
+    @Value("${article.articleContent}")
+    private String articleContent;
+
+    @Value("${article.encodeImage}")
+    private String encodeImage;
+
+    @Value("${article.categoryId}")
+    private String CATEGORY_ID;
+
+    @Value("${article.articleDate}")
+    private String articleDate;
+
+    @Value("${article.articleAuthor}")
+    private String articleAuthor;
+
+    @Value("${pagination.offset}")
+    private String OFFSET;
+
+    @Value("${pagination.limit}")
+    private String LIMIT;
 
     @Value("${article.selectArticlesBySizeAndOffset}")
     private String selectArticlesBySizeAndOffsetSql;
@@ -33,9 +57,13 @@ public class ArticleDaoImpl implements ArticleDao {
     private String selectNumberOfArticlesByCategoryIdSql;
     @Value("${article.selectArticlesBySizeAndOffsetAndArticleName}")
     private String selectArticlesBySizeAndOffsetAndArticleNameSql;
+    @Value("${article.selectNumberOfArticles}")
+    private String selectNumberOfArticlesSql;
+    @Value("${article.selectNumberOfArticlesByTitle}")
+    private String selectNumberOfArticlesByTitleSql;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final ArticleDtoRowMapper articleDtoRowMapper;
+    private final ArticleRowMapper articleDtoRowMapper;
 
     /**
      * Instantiates a new Article dao.
@@ -45,28 +73,31 @@ public class ArticleDaoImpl implements ArticleDao {
      */
     @Autowired
     public ArticleDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate,
-                          ArticleDtoRowMapper articleDtoRowMapper) {
+                          ArticleRowMapper articleDtoRowMapper) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.articleDtoRowMapper = articleDtoRowMapper;
     }
 
+    // get articles on main page
     @Override
-    public List<ArticleDto> getArticlesBySizeAndOffset(Integer size, Integer offset) {
+    public List<Article> getArticlesBySizeAndOffset(Integer size, Integer offset) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         this.addOffsetAndLimit(parameterSource, offset, size);
         return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetSql, parameterSource, articleDtoRowMapper);
     }
 
+    // get page by identifier of category
     @Override
-    public List<ArticleDto> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId) {
+    public List<Article> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(CATEGORY_ID, categoryId);
         this.addOffsetAndLimit(parameterSource, offset, size);
         return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndCategoryIdSql, parameterSource, articleDtoRowMapper);
     }
 
+    // get articles by name of article
     @Override
-    public List<ArticleDto> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName) {
+    public List<Article> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         this.addOffsetAndLimit(parameterSource, offset, size);
         parameterSource.addValue(ARTICLE_NAME, articleName);
@@ -74,10 +105,22 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public Integer getNumberOfArticlesByCategoryId(Long categoryId) {
+    public Long getCountArticles() {
+        return namedParameterJdbcTemplate.getJdbcTemplate().queryForObject(selectNumberOfArticlesSql, Long.class);
+    }
+
+    @Override
+    public Long getCountArticlesByCategoryId(Long categoryId) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(CATEGORY_ID, categoryId);
-        return namedParameterJdbcTemplate.queryForObject(selectNumberOfArticlesByCategoryIdSql, parameterSource, Integer.class);
+        return namedParameterJdbcTemplate.queryForObject(selectNumberOfArticlesByCategoryIdSql, parameterSource, Long.class);
+    }
+
+    @Override
+    public Long getCountArticlesByTitle(String title) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(ARTICLE_NAME, title);
+        return namedParameterJdbcTemplate.queryForObject(selectNumberOfArticlesByTitleSql, parameterSource, Long.class);
     }
 
     private void addOffsetAndLimit(MapSqlParameterSource parameterSource, Integer offset, Integer limit) {

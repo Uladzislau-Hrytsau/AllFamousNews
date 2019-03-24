@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex'
-    import {SidebarMenu} from 'vue-sidebar-menu'
+    import { mapState, mapActions, mapMutations } from 'vuex'
+    import { SidebarMenu } from 'vue-sidebar-menu'
 
     export default {
         name: "Tree",
@@ -24,11 +24,21 @@
         },
         methods: {
             ...mapActions([
-                'getAllCategories'
+                'getAllCategories',
+                'getArticlesAndCountByCategoryId'
+            ]),
+            ...mapMutations([
+                'setCurrentCategory',
+                'destroyCurrentPage',
+                'setCurrentPage',
+                'destroyTitle',
+                'setMenu'
             ]),
             onItemClick(event, item) {
-                console.log(item)
-
+                this.destroyTitle();
+                this.setCurrentPage(1);
+                this.setCurrentCategory(item.id);
+                this.getArticlesAndCountByCategoryId();
             }
         },
         mounted() {

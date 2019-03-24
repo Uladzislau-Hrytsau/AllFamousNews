@@ -26,5 +26,15 @@
 </script>
 
 <style>
-
+    #app {
+        height: 100%;
+        margin: 0;
+    }
+    .container-fluid {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
 </style>

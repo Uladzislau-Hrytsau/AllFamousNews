@@ -1,6 +1,7 @@
 package com.all.famous.news.service;
 
-import com.all.famous.news.model.dto.ArticleDto;
+import com.all.famous.news.model.Response;
+import com.all.famous.news.model.dao.Article;
 
 import java.util.List;
 
@@ -12,11 +13,11 @@ public interface ArticleService {
     /**
      * Gets articles by size and offset.
      *
-     * @param size   the size
-     * @param offset the offset
+     * @param size the size
+     * @param page the page
      * @return the articles by size and offset
      */
-    List<ArticleDto> getArticlesBySizeAndOffset(Integer size, Integer offset);
+    Response getArticlesBySizeAndOffset(Integer size, Integer page);
 
     /**
      * Gets articles by size and offset and category id.
@@ -26,24 +27,39 @@ public interface ArticleService {
      * @param categoryId the category id
      * @return the articles by size and offset and category id
      */
-    List<ArticleDto> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId);
+    Response getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId);
 
     /**
      * Gets articles by size and offset and article name.
      *
      * @param size        the size
-     * @param offset      the offset
+     * @param page        the page
      * @param articleName the article name
      * @return the articles by size and offset and article name
      */
-    List<ArticleDto> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName);
+    Response getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer page, String articleName);
 
     /**
-     * Gets number of articles by category id.
+     * Gets count articles.
+     *
+     * @return the count articles
+     */
+    Long getCountArticles();
+
+    /**
+     * Gets count articles by category id.
      *
      * @param categoryId the category id
-     * @return the number of articles by category id
+     * @return the count articles by category id
      */
-    Integer getNumberOfArticlesByCategoryId(Long categoryId);
+    Long getCountArticlesByCategoryId(Long categoryId);
+
+    /**
+     * Gets count articles by title.
+     *
+     * @param title the title
+     * @return the count articles by title
+     */
+    Long getCountArticlesByTitle(String title);
 
 }

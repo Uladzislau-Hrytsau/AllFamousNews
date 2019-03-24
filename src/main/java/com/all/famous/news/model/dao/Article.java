@@ -2,21 +2,23 @@ package com.all.famous.news.model.dao;
 
 import lombok.Builder;
 
-import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * The type Article.
  */
 @Builder
-public class Article implements Serializable {
+public class Article {
 
-    private Long articleId;
+    private Long id;
     private String articleName;
-    private String articleContent;
-    private String encodeImage;
     private String articleDescription;
+    private String articleContent;
+    private String articleEncodeImg;
     private Long categoryId;
+    private LocalDate date;
+    private String author;
 
     /**
      * Instantiates a new Article.
@@ -27,38 +29,42 @@ public class Article implements Serializable {
     /**
      * Instantiates a new Article.
      *
-     * @param articleId          the article id
+     * @param id                 the id
      * @param articleName        the article name
-     * @param articleContent     the article content
-     * @param encodeImage        the encode image
      * @param articleDescription the article description
+     * @param articleContent     the article content
+     * @param articleEncodeImg   the article encode img
      * @param categoryId         the category id
+     * @param date               the date
+     * @param author             the author
      */
-    public Article(Long articleId, String articleName, String articleContent, String encodeImage, String articleDescription, Long categoryId) {
-        this.articleId = articleId;
+    public Article(Long id, String articleName, String articleDescription, String articleContent, String articleEncodeImg, Long categoryId, LocalDate date, String author) {
+        this.id = id;
         this.articleName = articleName;
-        this.articleContent = articleContent;
-        this.encodeImage = encodeImage;
         this.articleDescription = articleDescription;
+        this.articleContent = articleContent;
+        this.articleEncodeImg = articleEncodeImg;
         this.categoryId = categoryId;
+        this.date = date;
+        this.author = author;
     }
 
     /**
-     * Gets article id.
+     * Gets id.
      *
-     * @return the article id
+     * @return the id
      */
-    public Long getArticleId() {
-        return articleId;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * Sets article id.
+     * Sets id.
      *
-     * @param articleId the article id
+     * @param id the id
      */
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
@@ -80,6 +86,24 @@ public class Article implements Serializable {
     }
 
     /**
+     * Gets article description.
+     *
+     * @return the article description
+     */
+    public String getArticleDescription() {
+        return articleDescription;
+    }
+
+    /**
+     * Sets article description.
+     *
+     * @param articleDescription the article description
+     */
+    public void setArticleDescription(String articleDescription) {
+        this.articleDescription = articleDescription;
+    }
+
+    /**
      * Gets article content.
      *
      * @return the article content
@@ -98,39 +122,21 @@ public class Article implements Serializable {
     }
 
     /**
-     * Gets encode image.
+     * Gets article encode img.
      *
-     * @return the encode image
+     * @return the article encode img
      */
-    public String getEncodeImage() {
-        return encodeImage;
+    public String getArticleEncodeImg() {
+        return articleEncodeImg;
     }
 
     /**
-     * Sets encode image.
+     * Sets article encode img.
      *
-     * @param encodeImage the encode image
+     * @param articleEncodeImg the article encode img
      */
-    public void setEncodeImage(String encodeImage) {
-        this.encodeImage = encodeImage;
-    }
-
-    /**
-     * Gets article description.
-     *
-     * @return the article description
-     */
-    public String getArticleDescription() {
-        return articleDescription;
-    }
-
-    /**
-     * Sets article description.
-     *
-     * @param articleDescription the article description
-     */
-    public void setArticleDescription(String articleDescription) {
-        this.articleDescription = articleDescription;
+    public void setArticleEncodeImg(String articleEncodeImg) {
+        this.articleEncodeImg = articleEncodeImg;
     }
 
     /**
@@ -151,33 +157,73 @@ public class Article implements Serializable {
         this.categoryId = categoryId;
     }
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    /**
+     * Sets date.
+     *
+     * @param date the date
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
+     * Gets author.
+     *
+     * @return the author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * Sets author.
+     *
+     * @param author the author
+     */
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(articleId, article.articleId) &&
-                Objects.equals(articleName, article.articleName) &&
-                Objects.equals(articleContent, article.articleContent) &&
-                Objects.equals(encodeImage, article.encodeImage) &&
-                Objects.equals(articleDescription, article.articleDescription) &&
-                Objects.equals(categoryId, article.categoryId);
+        Article that = (Article) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(articleName, that.articleName) &&
+                Objects.equals(articleDescription, that.articleDescription) &&
+                Objects.equals(articleContent, that.articleContent) &&
+                Objects.equals(articleEncodeImg, that.articleEncodeImg) &&
+                Objects.equals(categoryId, that.categoryId) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(author, that.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(articleId, articleName, articleContent, encodeImage, articleDescription, categoryId);
+        return Objects.hash(id, articleName, articleDescription, articleContent, articleEncodeImg, categoryId, date, author);
     }
 
     @Override
     public String toString() {
         return "Article{" +
-                "articleId=" + articleId +
+                "id=" + id +
                 ", articleName='" + articleName + '\'' +
-                ", articleContent='" + articleContent + '\'' +
-                ", encodeImage='" + encodeImage + '\'' +
                 ", articleDescription='" + articleDescription + '\'' +
+                ", articleContent='" + articleContent + '\'' +
+                ", articleEncodeImg='" + articleEncodeImg + '\'' +
                 ", categoryId=" + categoryId +
+                ", date=" + date +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

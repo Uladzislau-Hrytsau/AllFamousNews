@@ -1,12 +1,10 @@
 package com.all.famous.news.controller;
 
-import com.all.famous.news.model.dto.ArticleDto;
+import com.all.famous.news.model.Response;
 import com.all.famous.news.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * The type Article rest controller.
@@ -30,60 +28,51 @@ public class ArticleRestController {
     /**
      * Gets all article.
      *
-     * @param size   the size
-     * @param offset the offset
+     * @param size the size
+     * @param page the page
      * @return the all article
      */
-    @GetMapping(value = "/articles", params = {"size", "offset"})
+    @GetMapping(value = "/articles", params = {"size", "page"})
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ArticleDto> getAllArticle(
+    public Response getAllArticle(
             @RequestParam(value = "size") Integer size,
-            @RequestParam(value = "offset") Integer offset) {
-        return articleService.getArticlesBySizeAndOffset(size, offset);
+            @RequestParam(value = "page") Integer page) {
+        return articleService.getArticlesBySizeAndOffset(size, page);
     }
 
     /**
      * Gets articles by size and offset and category id.
      *
      * @param size       the size
-     * @param offset     the offset
+     * @param page       the page
      * @param categoryId the category id
      * @return the articles by size and offset and category id
      */
-    @GetMapping(value = "/articles", params = {"size", "offset", "categoryId"})
+    @GetMapping(value = "/articles", params = {"size", "page", "categoryId"})
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ArticleDto> getArticlesBySizeAndOffsetAndCategoryId(
+    public Response getArticlesBySizeAndOffsetAndCategoryId(
             @RequestParam(value = "size") Integer size,
-            @RequestParam(value = "offset") Integer offset,
+            @RequestParam(value = "page") Integer page,
             @RequestParam("categoryId") Long categoryId) {
-        return articleService.getArticlesBySizeAndOffsetAndCategoryId(size, offset, categoryId);
+        return articleService.getArticlesBySizeAndOffsetAndCategoryId(size, page, categoryId);
     }
 
     /**
      * Gets articles by size and offset and article name.
      *
      * @param size        the size
-     * @param offset      the offset
+     * @param page        the page
      * @param articleName the article name
      * @return the articles by size and offset and article name
      */
-    @GetMapping(value = "/articles", params = {"size", "offset", "articleName"})
+    @GetMapping(value = "/articles", params = {"size", "page", "articleName"})
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ArticleDto> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName) {
-        return articleService.getArticlesBySizeAndOffsetAndArticleName(size, offset, articleName);
+    public Response getArticlesBySizeAndOffsetAndArticleName(
+            @RequestParam(value = "size") Integer size,
+            @RequestParam("page") Integer page,
+            @RequestParam("articleName") String articleName) {
+        return articleService.getArticlesBySizeAndOffsetAndArticleName(size, page, articleName);
     }
 
-    /**
-     * Gets number of articles by category id.
-     *
-     * @param categoryId the category id
-     * @return the number of articles by category id
-     */
-    @GetMapping(value = "/articles", params = {"categoryId"})
-    @ResponseStatus(value = HttpStatus.OK)
-    public Integer getNumberOfArticlesByCategoryId(
-            @RequestParam(value = "categoryId") Long categoryId) {
-        return articleService.getNumberOfArticlesByCategoryId(categoryId);
-    }
 
 }

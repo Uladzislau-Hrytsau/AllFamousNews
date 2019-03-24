@@ -23,11 +23,10 @@ public class CategoryDtoRowMapper implements RowMapper<CategoryDto> {
 
     @Override
     public CategoryDto mapRow(ResultSet rs, int i) throws SQLException {
-//        this.icon = "fa fa-user";
         return new CategoryDto().builder()
                 .id(rs.getLong(categoryId))
+                .icon("fas fa-angle-right")
                 .title(rs.getString(category_name))
-                .icon("fa fa-user")
                 .build();
     }
 

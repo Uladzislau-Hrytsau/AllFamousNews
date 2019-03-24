@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div id="Body">
         <Tree></Tree>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <Article class="mb-5"></Article>
-                    <Pagination></Pagination>
+                    <Article></Article>
+                    <Pagination ></Pagination>
                 </div>
             </div>
         </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import {mapActions, mapState} from 'vuex';
     import Tree from './body/Tree';
     import Article from './body/Article';
     import Pagination from './body/Pagination';
@@ -23,10 +24,34 @@
             Tree,
             Article,
             Pagination
+        },
+        computed: {
+            ...mapState([
+                'currentCategory',
+                'title'
+            ])
+        },
+        methods: {
+            ...mapActions([
+                'getArticlesAndCount',
+                'getArticlesAndCountByCategoryId',
+                'getArticlesAndCountByTitle'
+            ]),
+        },
+        mounted() {
+            if (this.currentCategory) {
+                this.getArticlesAndCountByCategoryId();
+            } else if (this.title) {
+                this.getArticlesAndCountByTitle();
+            } else {
+                this.getArticlesAndCount();
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    #Body {
+        height:100%;
+    }
 </style>

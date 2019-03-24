@@ -30,18 +30,6 @@ public class CategoryRestController {
         this.categoryService = categoryService;
     }
 
-//    /**
-//     * Gets all categories by parent id.
-//     *
-//     * @param parentId the parent id
-//     * @return the all categories by parent id
-//     */
-//    @GetMapping("/categoriess")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Category> getAllCategoriesByParentId(@RequestParam(value = "parentId") Long parentId) {
-//        return categoryService.getCategoriesByParentId(parentId);
-//    }
-
     /**
      * Gets all categories.
      *
@@ -50,22 +38,6 @@ public class CategoryRestController {
     @GetMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryDto> getAllCategories() {
-//        List<CategoryDto> list = new ArrayList<>();
-//        CategoryDto categoryDto = new CategoryDto();
-//        categoryDto.setId(1L);
-//        categoryDto.setTitle("sport");
-//        CategoryChildDto categoryChildDto1 = new CategoryChildDto();
-//        categoryChildDto1.setId(2L);
-//        categoryChildDto1.setTitle("below sport 1");
-//        CategoryChildDto categoryChildDto2 = new CategoryChildDto();
-//        categoryChildDto2.setId(3L);
-//        categoryChildDto2.setTitle("below sport 2");
-//        List<CategoryChildDto> categoryChildDtos = new ArrayList<>();
-//        categoryChildDtos.add(categoryChildDto1);
-//        categoryChildDtos.add(categoryChildDto2);
-//        categoryDto.setChild(categoryChildDtos);
-//        list.add(categoryDto);
-//        return list;
         return categoryService.getCategories();
     }
 
