@@ -1,9 +1,6 @@
 package com.all.famous.news.service;
 
 import com.all.famous.news.model.Response;
-import com.all.famous.news.model.dao.Article;
-
-import java.util.List;
 
 /**
  * The interface Article service.

@@ -7,8 +7,6 @@ import com.all.famous.news.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * The type Article service.
  */

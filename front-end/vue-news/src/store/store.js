@@ -8,7 +8,7 @@ import 'vue-material/dist/vue-material.min.css'
 Vue.use(VueMaterial);
 Vue.use(Vuex);
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'http://localhost:8080/';
 
 export const store = new Vuex.Store({
 

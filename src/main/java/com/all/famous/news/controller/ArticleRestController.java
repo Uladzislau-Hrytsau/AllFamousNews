@@ -32,7 +32,9 @@ public class ArticleRestController {
      * @param page the page
      * @return the all article
      */
-    @GetMapping(value = "/articles", params = {"size", "page"})
+    @GetMapping(
+            value = "/articles",
+            params = {"size", "page"})
     @ResponseStatus(value = HttpStatus.OK)
     public Response getAllArticle(
             @RequestParam(value = "size") Integer size,

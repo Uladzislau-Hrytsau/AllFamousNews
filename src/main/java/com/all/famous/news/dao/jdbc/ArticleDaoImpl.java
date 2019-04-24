@@ -8,47 +8,40 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * The type Article dao.
  */
-@Component
+@Repository
 @PropertySource("classpath:sql/sql-queries.properties")
 @PropertySource("classpath:sql/sql-fields.properties")
 public class ArticleDaoImpl implements ArticleDao {
 
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final ArticleRowMapper articleRowMapper;
     @Value("${article.articleId}")
     private String ARTICLE_ID;
     @Value("${article.articleName}")
     private String ARTICLE_NAME;
-
     @Value("${article.articleDescription}")
     private String articleDescription;
-
     @Value("${article.articleContent}")
     private String articleContent;
-
     @Value("${article.encodeImage}")
     private String encodeImage;
-
     @Value("${article.categoryId}")
     private String CATEGORY_ID;
-
     @Value("${article.articleDate}")
     private String articleDate;
-
     @Value("${article.articleAuthor}")
     private String articleAuthor;
-
     @Value("${pagination.offset}")
     private String OFFSET;
-
     @Value("${pagination.limit}")
     private String LIMIT;
-
     @Value("${article.selectArticlesBySizeAndOffset}")
     private String selectArticlesBySizeAndOffsetSql;
     @Value("${article.selectArticlesBySizeAndOffsetAndCategoryId}")
@@ -62,9 +55,6 @@ public class ArticleDaoImpl implements ArticleDao {
     @Value("${article.selectNumberOfArticlesByTitle}")
     private String selectNumberOfArticlesByTitleSql;
 
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final ArticleRowMapper articleDtoRowMapper;
-
     /**
      * Instantiates a new Article dao.
      *
@@ -75,7 +65,7 @@ public class ArticleDaoImpl implements ArticleDao {
     public ArticleDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate,
                           ArticleRowMapper articleDtoRowMapper) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        this.articleDtoRowMapper = articleDtoRowMapper;
+        this.articleRowMapper = articleDtoRowMapper;
     }
 
     // get articles on main page
@@ -83,7 +73,7 @@ public class ArticleDaoImpl implements ArticleDao {
     public List<Article> getArticlesBySizeAndOffset(Integer size, Integer offset) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         this.addOffsetAndLimit(parameterSource, offset, size);
-        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetSql, parameterSource, articleDtoRowMapper);
+        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetSql, parameterSource, articleRowMapper);
     }
 
     // get page by identifier of category
@@ -92,7 +82,7 @@ public class ArticleDaoImpl implements ArticleDao {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(CATEGORY_ID, categoryId);
         this.addOffsetAndLimit(parameterSource, offset, size);
-        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndCategoryIdSql, parameterSource, articleDtoRowMapper);
+        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndCategoryIdSql, parameterSource, articleRowMapper);
     }
 
     // get articles by name of article
@@ -101,7 +91,7 @@ public class ArticleDaoImpl implements ArticleDao {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         this.addOffsetAndLimit(parameterSource, offset, size);
         parameterSource.addValue(ARTICLE_NAME, articleName);
-        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndArticleNameSql, parameterSource, articleDtoRowMapper);
+        return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndArticleNameSql, parameterSource, articleRowMapper);
     }
 
     @Override
