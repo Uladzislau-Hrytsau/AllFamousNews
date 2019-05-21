@@ -43,4 +43,4 @@ Deployment the backend application using:
 mvn spring-boot:run
 ```
 
-##[How to install and deploy the frontend application](../AllFamousNews/front-end/vue-news/README.md)
+## [How to install and deploy the frontend application](../AllFamousNews/front-end/vue-news/README.md)
