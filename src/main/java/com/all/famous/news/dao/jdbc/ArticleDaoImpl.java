@@ -68,7 +68,6 @@ public class ArticleDaoImpl implements ArticleDao {
         this.articleRowMapper = articleDtoRowMapper;
     }
 
-    // get articles on main page
     @Override
     public List<Article> getArticlesBySizeAndOffset(Integer size, Integer offset) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -76,7 +75,6 @@ public class ArticleDaoImpl implements ArticleDao {
         return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetSql, parameterSource, articleRowMapper);
     }
 
-    // get page by identifier of category
     @Override
     public List<Article> getArticlesBySizeAndOffsetAndCategoryId(Integer size, Integer offset, Long categoryId) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -85,7 +83,6 @@ public class ArticleDaoImpl implements ArticleDao {
         return namedParameterJdbcTemplate.query(selectArticlesBySizeAndOffsetAndCategoryIdSql, parameterSource, articleRowMapper);
     }
 
-    // get articles by name of article
     @Override
     public List<Article> getArticlesBySizeAndOffsetAndArticleName(Integer size, Integer offset, String articleName) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();

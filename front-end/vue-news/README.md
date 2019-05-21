@@ -1,8 +1,15 @@
 # vue-news
 
 ## Project setup
+
+###  Install npm using:
 ```
 npm install
+```
+
+### Install vue-cli using:
+```
+npm install -g vue-cli
 ```
 
 ### Compiles and hot-reloads for development
