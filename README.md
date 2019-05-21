@@ -1,6 +1,6 @@
 # All Famous News
 
-##Necessary tools
+## Necessary tools
 
 * [Maven 3](https://maven.apache.org/)
 * [Java 8 or latest version](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
