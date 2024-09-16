@@ -56,6 +56,7 @@ public class RestErrorHandler {
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleDataAccessException(DataAccessException exc) {
+
         return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
