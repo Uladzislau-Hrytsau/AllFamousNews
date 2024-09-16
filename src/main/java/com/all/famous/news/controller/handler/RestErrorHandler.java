@@ -58,6 +58,7 @@ public class RestErrorHandler {
     public ErrorResponse handleDataAccessException(DataAccessException exc) {
 
 
+
         return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
