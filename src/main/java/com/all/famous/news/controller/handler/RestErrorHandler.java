@@ -60,6 +60,7 @@ public class RestErrorHandler {
 
 
 
+
         return new ErrorResponse().builder()
                 .messages(Collections.singletonList(exc.getMessage()))
                 .build();
